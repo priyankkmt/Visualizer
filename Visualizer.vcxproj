@@ -17,7 +17,7 @@
     </ProjectConfiguration>
   </ItemGroup>
   <PropertyGroup Label="Globals">
-    <ProjectGuid>{A8823806-70AF-45D0-83AF-CCD5A80DD6F7}</ProjectGuid>
+    <ProjectGuid>{DB2BA37F-6A3A-42CA-97F7-49E61D908739}</ProjectGuid>
     <Keyword>QtVS_v304</Keyword>
     <WindowsTargetPlatformVersion Condition="'$(Configuration)|$(Platform)' == 'Debug|x64'">10.0.22621.0</WindowsTargetPlatformVersion>
     <WindowsTargetPlatformVersion Condition="'$(Configuration)|$(Platform)' == 'Release|x64'">10.0.22621.0</WindowsTargetPlatformVersion>
@@ -64,6 +64,15 @@
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release|x64'">
   </PropertyGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+    <ClCompile>
+      <AdditionalIncludeDirectories>D:\Folder\Visualizer\Visualizer\Geometry;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+    </ClCompile>
+    <Link>
+      <AdditionalLibraryDirectories>D:\Folder\Visualizer\x64\Debug;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalDependencies>Geometry.lib;%(AdditionalDependencies)</AdditionalDependencies>
+    </Link>
+  </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|x64'" Label="Configuration">
     <ClCompile>
       <TreatWChar_tAsBuiltInType>true</TreatWChar_tAsBuiltInType>
@@ -99,13 +108,20 @@
     </QtMoc>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="Grid.h" />
+    <QtMoc Include="OpenGLWindow.h" />
+    <ClInclude Include="HodgmanPolygonClipping.h" />
+    <ClInclude Include="Shape.h" />
+    <ClInclude Include="SymmetricDDA.h" />
     <QtRcc Include="Visualizer.qrc" />
-    <QtUic Include="Visualizer.ui" />
     <QtMoc Include="Visualizer.h" />
-    <ClCompile Include="OpenGLWIndow.cpp" />
+    <ClCompile Include="Grid.cpp" />
+    <ClCompile Include="HodgmanPolygonClipping.cpp" />
+    <ClCompile Include="OpenGLWindow.cpp" />
+    <ClCompile Include="Shape.cpp" />
+    <ClCompile Include="SymmetricDDA.cpp" />
     <ClCompile Include="Visualizer.cpp" />
     <ClCompile Include="main.cpp" />
-    <QtMoc Include="OpenGLWIndow.h" />
     <ClInclude Include="stdafx.h" />
     <ClCompile Include="stdafx.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)' == 'Debug|x64'">Create</PrecompiledHeader>

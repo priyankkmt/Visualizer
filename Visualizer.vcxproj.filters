@@ -26,9 +26,6 @@
     <QtRcc Include="Visualizer.qrc">
       <Filter>Resource Files</Filter>
     </QtRcc>
-    <QtUic Include="Visualizer.ui">
-      <Filter>Form Files</Filter>
-    </QtUic>
     <QtMoc Include="Visualizer.h">
       <Filter>Header Files</Filter>
     </QtMoc>
@@ -46,12 +43,38 @@
     <ClCompile Include="main.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="OpenGLWIndow.cpp">
+    <ClCompile Include="SymmetricDDA.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="OpenGLWindow.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Grid.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="HodgmanPolygonClipping.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Shape.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <QtMoc Include="OpenGLWIndow.h">
+    <ClInclude Include="SymmetricDDA.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Grid.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="HodgmanPolygonClipping.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Shape.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <QtMoc Include="OpenGLWindow.h">
       <Filter>Header Files</Filter>
     </QtMoc>
   </ItemGroup>
