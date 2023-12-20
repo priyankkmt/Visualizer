@@ -1,41 +1,62 @@
 #include "pch.h"
-#include "BezierCurve.h"
-#include <cmath>
+#include "Bazier.h"
+#include "Point.h"
 
-Bezier::Bezier(Point inP0, Point inP1, Point inP2, Point inP3) :
-    mP0(inP0),
-    mP1(inP1),
-    mP2(inP2),
-    mP3(inP2)
-{
+#include <vector>
 
-}
-Bezier::~Bezier()
+Bazier::Bazier()
 {
+    return;
 }
 
-void Bezier::drawCurve(Point inP0, Point inP1, Point inP2, Point inP3, vector<float>& mVertices, vector<float>& mColors)
+Bazier::Bazier(std::vector<Point> points) : mControlPoints(points)
 {
-    for (float t = 0; t <= 1; t += 0.001)
-    {
-        float x = pow(1 - t, 3) * inP0.x() + 3 * pow(1 - t, 2) * t * inP1.x() + 3 * (1 - t) * pow(t, 2) * inP2.x() + pow(t, 3) * inP3.x();
-        float y = pow(1 - t, 3) * inP0.y() + 3 * pow(1 - t, 2) * t * inP1.y() + 3 * (1 - t) * pow(t, 2) * inP2.y() + pow(t, 3) * inP3.y();
-        float z = pow(1 - t, 3) * inP0.z() + 3 * pow(1 - t, 2) * t * inP1.z() + 3 * (1 - t) * pow(t, 2) * inP2.z() + pow(t, 3) * inP3.z();
+}
 
-        mVertices.push_back(x);
-        mVertices.push_back(y);
-        mVertices.push_back(z);
+Bazier::~Bazier()
+{
+}
 
-        mVertices.push_back(x);
-        mVertices.push_back(y);
-        mVertices.push_back(z);
+void Bazier::calculateBazier(floatVector& mVertices, floatVector& mColors)
+{
+    for (double t = 0; t <= 1; t += 0.1) {
+        Point r = evaluateBazier(t);
+        mVertices.push_back(r.x());
+        mVertices.push_back(r.y());
 
-        mColors.push_back(0.0f);
         mColors.push_back(1.0f);
-        mColors.push_back(0.0f);
-
-        mColors.push_back(0.0f);
         mColors.push_back(1.0f);
         mColors.push_back(0.0f);
     }
+    for (int i = 2; i < mVertices.size(); i += 4)
+    {
+        mVertices.push_back(mVertices[i]);
+        mVertices.push_back(mVertices[i + 1]);
+
+        mVertices.push_back(mVertices[i + 2]);
+        mVertices.push_back(mVertices[i + 3]);
+
+        mColors.push_back(1.0f);
+        mColors.push_back(1.0f);
+        mColors.push_back(0.0f);
+
+        mColors.push_back(1.0f);
+        mColors.push_back(1.0f);
+        mColors.push_back(0.0f);
+    }
+}
+
+Point Bazier::evaluateBazier(double t)
+{
+    double u = 1.0 - t;
+    double tt = t * t;
+    double uu = u * u;
+    double uuu = uu * u;
+    double ttt = tt * t;
+
+    double x = uuu * mControlPoints[0].x() + 3 * uu * t * mControlPoints[1].x() + 3 * u * tt * mControlPoints[2].x() + ttt * mControlPoints[3].x();
+    double y = uuu * mControlPoints[0].y() + 3 * uu * t * mControlPoints[1].y() + 3 * u * tt * mControlPoints[2].y() + ttt * mControlPoints[3].y();
+    Point p(x, y);
+
+    return p;
 }
