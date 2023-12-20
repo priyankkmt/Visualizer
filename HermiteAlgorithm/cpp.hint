@@ -1,0 +1,2 @@
+#define HERMITEALGORITHM_API __declspec(dllexport)
+#define HERMITEALGORITHM_API __declspec(dllimport)

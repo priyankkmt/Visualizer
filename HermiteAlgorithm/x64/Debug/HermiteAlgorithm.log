@@ -1,0 +1,19 @@
+﻿  pch.cpp
+  dllmain.cpp
+  Hermite.cpp
+D:\Folder\Visualizer\Visualizer\HermiteAlgorithm\Hermite.cpp(23,35): warning C4305: '+=': truncation from 'double' to 'float'
+  (compiling source file '/Hermite.cpp')
+  
+D:\Folder\Visualizer\Visualizer\HermiteAlgorithm\Hermite.cpp(33,17): warning C4244: 'initializing': conversion from 'double' to 'float', possible loss of data
+  (compiling source file '/Hermite.cpp')
+  
+D:\Folder\Visualizer\Visualizer\HermiteAlgorithm\Hermite.cpp(34,17): warning C4244: 'initializing': conversion from 'double' to 'float', possible loss of data
+  (compiling source file '/Hermite.cpp')
+  
+D:\Folder\Visualizer\Visualizer\HermiteAlgorithm\Hermite.cpp(35,17): warning C4244: 'initializing': conversion from 'double' to 'float', possible loss of data
+  (compiling source file '/Hermite.cpp')
+  
+  HermiteAlgorithm.cpp
+  Generating Code...
+     Creating library D:\Folder\Visualizer\x64\Debug\HermiteAlgorithm.lib and object D:\Folder\Visualizer\x64\Debug\HermiteAlgorithm.exp
+  HermiteAlgorithm.vcxproj -> D:\Folder\Visualizer\x64\Debug\HermiteAlgorithm.dll
