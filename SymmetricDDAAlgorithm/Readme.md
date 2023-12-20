@@ -1,7 +1,7 @@
 ### Symmetric DDA algorithm's Implementation
 
 ## Input
-Input for the following are 2 Points that are {(0,0), (4,4)}
+Input for the following are 2 Points that are {(0,0), (10,10)}
 
 ## Output
 Output of Symmetric DDA Algorithm
