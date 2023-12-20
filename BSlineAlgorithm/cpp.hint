@@ -1,0 +1,2 @@
+#define BSLINEALGORITHM_API __declspec(dllexport)
+#define BSLINEALGORITHM_API __declspec(dllimport)
