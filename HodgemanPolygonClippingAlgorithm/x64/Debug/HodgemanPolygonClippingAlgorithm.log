@@ -1,0 +1,16 @@
+﻿  HodgmanPolygonClipping.cpp
+D:\Folder\Visualizer\Visualizer\Geometry\shape.h(26,23): warning C4251: 'Shape::mPolyLines': class 'std::vector<Line,std::allocator<Line>>' needs to have dll-interface to be used by clients of class 'Shape'
+  (compiling source file '/HodgmanPolygonClipping.cpp')
+  D:\Folder\Visualizer\Visualizer\Geometry\shape.h(13,22):
+  see declaration of 'std::vector<Line,std::allocator<Line>>'
+  
+D:\Folder\Visualizer\Visualizer\Geometry\shape.h(27,24): warning C4251: 'Shape::mPoints': class 'std::vector<Point,std::allocator<Point>>' needs to have dll-interface to be used by clients of class 'Shape'
+  (compiling source file '/HodgmanPolygonClipping.cpp')
+  D:\Folder\Visualizer\Visualizer\Geometry\shape.h(27,10):
+  see declaration of 'std::vector<Point,std::allocator<Point>>'
+  
+D:\Folder\Visualizer\Visualizer\HodgemanPolygonClippingAlgorithm\HodgmanPolygonClipping.cpp(15,14): warning C4267: 'initializing': conversion from 'size_t' to 'int', possible loss of data
+  (compiling source file '/HodgmanPolygonClipping.cpp')
+  
+     Creating library D:\Folder\Visualizer\x64\Debug\HodgemanPolygonClippingAlgorithm.lib and object D:\Folder\Visualizer\x64\Debug\HodgemanPolygonClippingAlgorithm.exp
+  HodgemanPolygonClippingAlgorithm.vcxproj -> D:\Folder\Visualizer\x64\Debug\HodgemanPolygonClippingAlgorithm.dll

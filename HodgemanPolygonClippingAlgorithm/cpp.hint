@@ -1,0 +1,2 @@
+#define HODGEMANPOLYGONCLIPPINGALGORITHM_API __declspec(dllexport)
+#define HODGEMANPOLYGONCLIPPINGALGORITHM_API __declspec(dllimport)
