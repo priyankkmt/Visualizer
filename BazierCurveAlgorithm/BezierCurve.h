@@ -4,22 +4,19 @@
 #include<vector>
 
 using namespace std;
-class BAZIERCURVEALGORITHM_API Bezier
+typedef std::vector<float> floatVector;
+
+class BAZIERCURVEALGORITHM_API Bazier
 {
 public:
-	Bezier(Point inP0, Point inP1, Point inP2, Point inP3);
-	~Bezier();
+	Bazier(void);
 
-	void drawCurve(Point inP0, Point inP1, Point inP2, Point inP3, vector<float>& mVertices, vector<float>& mColors);
-
+public:
+	Bazier(std::vector<Point> points);
+	~Bazier();
+	void calculateBazier(floatVector& mVertices, floatVector& mColors);
 private:
-	Point mP0;
-	Point mP1;
-	Point mP2;
-	Point mP3;
-
-	float blend1;
-	float blend2;
-	float blend3;
-	float blend4;
+	Point evaluateBazier(double t);
+private:
+	std::vector<Point> mControlPoints;
 };
