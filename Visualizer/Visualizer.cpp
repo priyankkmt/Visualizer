@@ -60,43 +60,11 @@ void Visualizer::clipPolygon()
     mRenderer->setPolygon(sh);
 }
 
+//BSline algo
 void Visualizer::drawBSlineAlgo()
 {
-    Point pt0 = mLinePoints[0];
-    Point pt1 = mLinePoints[1];
-    Point pt2 = mLinePoints[2];
-    Point pt3 = mLinePoints[2];
-
-    mVertices.push_back(pt0.x());
-    mVertices.push_back(pt0.y());
-
-    mVertices.push_back(pt1.x());
-    mVertices.push_back(pt1.y());
-
-    mVertices.push_back(pt2.x());
-    mVertices.push_back(pt2.y());
-
-    mVertices.push_back(pt3.x());
-    mVertices.push_back(pt3.y());
-
-    mColors.push_back(0.0f);
-    mColors.push_back(1.0f);
-    mColors.push_back(0.0f);
-
-    mColors.push_back(0.0f);
-    mColors.push_back(1.0f);
-    mColors.push_back(0.0f);
-
-    mColors.push_back(0.0f);
-    mColors.push_back(1.0f);
-    mColors.push_back(0.0f);
-
-    mColors.push_back(0.0f);
-    mColors.push_back(1.0f);
-    mColors.push_back(0.0f);
-
-    bsline = new BSpline(pt0, pt1, pt2, pt3);
-    bsline->drawCurveBspline(mVertices, mColors);
+    bsline = new BSpline();
+    bsline->evaluate(mLinePoints,mVertices,mColors,1);
 
     mRenderer->setVectorOfLines(mVertices);
     mRenderer->setColorOfLines(mColors);
@@ -107,41 +75,8 @@ void Visualizer::drawBSlineAlgo()
 //Bezier Algo
 void Visualizer::drawBezierAlgo()
 {
-    Point pt0 = mLinePoints[0];
-    Point pt1 = mLinePoints[1];
-    Point pt2 = mLinePoints[2];
-    Point pt3 = mLinePoints[2];
-
-    mVertices.push_back(pt0.x());
-    mVertices.push_back(pt0.y());
-
-    mVertices.push_back(pt1.x());
-    mVertices.push_back(pt1.y());
-
-    mVertices.push_back(pt2.x());
-    mVertices.push_back(pt2.y());
-
-    mVertices.push_back(pt3.x());
-    mVertices.push_back(pt3.y());
-
-    mColors.push_back(0.0f);
-    mColors.push_back(1.0f);
-    mColors.push_back(0.0f);
-
-    mColors.push_back(0.0f);
-    mColors.push_back(1.0f);
-    mColors.push_back(0.0f);
-
-    mColors.push_back(0.0f);
-    mColors.push_back(1.0f);
-    mColors.push_back(0.0f);
-
-    mColors.push_back(0.0f);
-    mColors.push_back(1.0f);
-    mColors.push_back(0.0f);
-
-    bezier = new Bezier(pt0, pt1, pt2, pt3);
-    bezier->drawCurve(pt0, pt1, pt2, pt3, mVertices, mColors);
+    bezier = new Bazier(mLinePoints);
+    bezier->calculateBazier( mVertices, mColors);
 
     mRenderer->setVectorOfLines(mVertices);
     mRenderer->setColorOfLines(mColors);
@@ -149,45 +84,11 @@ void Visualizer::drawBezierAlgo()
 }
 
 
-
 //Hermit Algo
 void Visualizer::drawHermitAlgo()
 {
-    Point pt0 = mLinePoints[0];
-    Point pt1 = mLinePoints[1];
-    Point pt2 = mLinePoints[2];
-    Point pt3 = mLinePoints[2];
-
-    mVertices.push_back(pt0.x());
-    mVertices.push_back(pt0.y());
-
-    mVertices.push_back(pt1.x());
-    mVertices.push_back(pt1.y());
-
-    mVertices.push_back(pt2.x());
-    mVertices.push_back(pt2.y());
-
-    mVertices.push_back(pt3.x());
-    mVertices.push_back(pt3.y());
-
-    mColors.push_back(0.0f);
-    mColors.push_back(1.0f);
-    mColors.push_back(0.0f);
-
-    mColors.push_back(0.0f);
-    mColors.push_back(1.0f);
-    mColors.push_back(0.0f);
-
-    mColors.push_back(0.0f);
-    mColors.push_back(1.0f);
-    mColors.push_back(0.0f);
-
-    mColors.push_back(0.0f);
-    mColors.push_back(1.0f);
-    mColors.push_back(0.0f);
-
-    hermite = new Hermite(pt0, pt1, pt2, pt3);
-    hermite->drawCurve(pt0, pt1, pt2, pt3, mVertices, mColors);
+    hermite = new Hermite(mLinePoints);
+    hermite->calculateHermite(mVertices, mColors);
 
     mRenderer->setVectorOfLines(mVertices);
     mRenderer->setColorOfLines(mColors);
