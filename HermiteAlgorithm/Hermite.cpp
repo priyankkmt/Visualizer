@@ -2,53 +2,46 @@
 #include "Hermite.h"
 #include "Point.h"
 
-Hermite::Hermite(Point inP0, Point inP1, Point inP2, Point inP3) :
-    mP0(inP0),
-    mP1(inP1),
-    mP2(inP2),
-    mP3(inP2)
-{
+#include <vector>
 
+Hermite::Hermite()
+{
+    return;
 }
+
+Hermite::Hermite(std::vector<Point> points) : mControlPoints(points)
+{
+}
+
 Hermite::~Hermite()
 {
-
 }
 
-void Hermite::drawCurve(Point inP0, Point inP1, Point inP2, Point inP3, vector<float>& mVertices, vector<float>& mColors)
+void Hermite::calculateHermite(floatVector& mVertices, floatVector& mColors)
 {
-    float t;
-    float t2;
-    float t3;
-    for (t = 0; t <= 1; t += 0.001)
-    {
-        t2 = t * t;
-        t3 = t2 * t;
+    for (double t = 0; t <= 1; t += 0.1) {
+        Point r = evaluateHermite(t);
+        mVertices.push_back(r.x());
+        mVertices.push_back(r.y());
 
-        blend1 = (2 * t3) - (3 * t2) + 1;
-        blend2 = (-2 * t3) + (3 * t2);
-        blend3 = t3 - (2 * t2) + t;
-        blend4 = t3 - t2;
-
-        float x = blend1 * inP0.x() + blend2 * (inP1.x() - inP0.x()) + blend3 * inP2.x() + blend4 * (inP3.x() - inP2.x());
-        float y = blend1 * inP0.y() + blend2 * (inP1.y() - inP0.y()) + blend3 * inP2.y() + blend4 * (inP3.y() - inP2.y());
-        float z = blend1 * inP0.z() + blend2 * (inP1.z() - inP0.z()) + blend3 * inP2.z() + blend4 * (inP3.z() - inP2.z());
-
-        mVertices.push_back(x);
-        mVertices.push_back(y);
-        mVertices.push_back(z);
-
-
-        mColors.push_back(0.0f);
         mColors.push_back(1.0f);
-        mColors.push_back(0.0f);
-
-        mVertices.push_back(x);
-        mVertices.push_back(y);
-        mVertices.push_back(z);
-
-        mColors.push_back(0.0f);
         mColors.push_back(1.0f);
         mColors.push_back(0.0f);
     }
+}
+
+Point Hermite::evaluateHermite(double t)
+{
+    double t2 = t * t;
+    double t3 = t2 * t;
+
+    double h1 = 2 * t3 - 3 * t2 + 1;
+    double h2 = -2 * t3 + 3 * t2;
+    double h3 = t3 - 2 * t2 + t;
+    double h4 = t3 - t2;
+
+    double x = h1 * mControlPoints[0].x() + h2 * mControlPoints[1].x() + h3 * mControlPoints[2].x() + h4 * mControlPoints[3].x();
+    double y = h1 * mControlPoints[0].y() + h2 * mControlPoints[1].y() + h3 * mControlPoints[2].y() + h4 * mControlPoints[3].y();
+
+    return Point(x, y);
 }
