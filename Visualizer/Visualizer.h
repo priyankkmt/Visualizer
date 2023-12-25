@@ -9,8 +9,8 @@
 #include "HodgmanPolygonClipping.h"
 #include "Line.h"
 #include "Hermite.h"
-#include "BezierCurve.h"
-#include "BSline.h"
+#include "Bazier.h"
+#include "BSPline.h"
 
 typedef std::vector<Point> pointList;
 typedef std::vector<float> floatVector;
@@ -21,46 +21,47 @@ class Visualizer : public QMainWindow
     Q_OBJECT
 
 public:
-    Visualizer(QWidget *parent = nullptr);
+    Visualizer(QWidget* parent = nullptr);
     ~Visualizer();
 
 public:
     vectorOfVectorFLoat mPixelVertices;
-    floatVector   mVertices;
-    floatVector   mColors;
+    floatVector         mVertices;
+    floatVector         mColors;
 
 private:
     void setupUi();
     void retranslateUi();
 private:
-    
-    QWidget* centralWidget;
-    QLabel* symmetricLabel;
-    QLabel* clipPolygonLabel;
+
+    QWidget*  centralWidget;
+    QLabel*   mSymmetricLabel;
+    QLabel*   mClipPolygonLabel;
     QSpinBox* xCoordinateInput;
     QSpinBox* yCoordinateInput;
 
-    QPushButton* AddButton;
-    QPushButton* addPolygonButton;
-    QPushButton* addRegionButton;
-    QPushButton* darwLineButton;
-    QPushButton* clipPolygonButton;
-    QPushButton* drawHermitButton;
-    QPushButton* drawBazierButton;
-    QPushButton* drawBSlineButton;
+    QPushButton* mAddButton;
+    QPushButton* mAddPolygonButton;
+    QPushButton* mAddRegionButton;
+    QPushButton* mDarwLineButton;
+    QPushButton* mClipPolygonButton;
+    QPushButton* mDrawHermitButton;
+    QPushButton* mDrawBazierButton;
+    QPushButton* mDrawBSlineButton;
+    QPushButton* mColorSelector;
 
     QOpenGLWidget* openGLWidget;
-    QMenuBar* menuBar;
-    QToolBar* mainToolBar;
-    QStatusBar* statusBar;
+    QMenuBar*      menuBar;
+    QToolBar*      mainToolBar;
+    QStatusBar*    statusBar;
 
     OpenGLWindow* mRenderer;
 
     SymmetricDDA symmetricDDA;
-    Grid grid;
-    Hermite* hermite;
-    Bezier* bezier;
-    BSpline* bsline;
+    Grid         grid;
+    Hermite*     hermite;
+    Bazier*      bezier;
+    BSpline*     bsline;
 
     Shape mPolygon;
     Shape mRegion;
