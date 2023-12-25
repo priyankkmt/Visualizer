@@ -2,17 +2,19 @@
 #include "Visualizer.h"
 #include "OpenGLWindow.h"
 
-Visualizer::Visualizer(QWidget *parent)
+Visualizer::Visualizer(QWidget* parent)
     : QMainWindow(parent)
 {
     setupUi();
-    connect(AddButton, &QPushButton::clicked, this, &Visualizer::addPoints);
-    connect(darwLineButton, &QPushButton::clicked, this, &Visualizer::drawLine);
-    connect(clipPolygonButton, &QPushButton::clicked, this, &Visualizer::clipPolygon);
-    connect(addPolygonButton, &QPushButton::clicked, this, &Visualizer::addPolygon);
-    connect(addRegionButton, &QPushButton::clicked, this, &Visualizer::addRegion);
-    connect(drawHermitButton, &QPushButton::clicked, this, &Visualizer::drawHermitAlgo);
-    connect(drawBazierButton, &QPushButton::clicked, this, &Visualizer::drawHermitAlgo);
+    connect(mAddButton, &QPushButton::clicked, this, &Visualizer::addPoints);
+    connect(mDarwLineButton, &QPushButton::clicked, this, &Visualizer::drawLine);
+    connect(mClipPolygonButton, &QPushButton::clicked, this, &Visualizer::clipPolygon);
+    connect(mAddPolygonButton, &QPushButton::clicked, this, &Visualizer::addPolygon);
+    connect(mAddRegionButton, &QPushButton::clicked, this, &Visualizer::addRegion);
+    connect(mDrawHermitButton, &QPushButton::clicked, this, &Visualizer::drawHermitAlgo);
+    connect(mDrawBazierButton, &QPushButton::clicked, this, &Visualizer::drawHermitAlgo);
+    connect(mDrawBSlineButton, &QPushButton::clicked, this, &Visualizer::drawBSlineAlgo);
+    connect(mColorSelector, &QPushButton::clicked, mRenderer, &OpenGLWindow::selectCurveColor);
 }
 
 Visualizer::~Visualizer()
@@ -23,7 +25,7 @@ void Visualizer::addPoints()
     double xCoordinate = xCoordinateInput->value();
     double yCoordinate = yCoordinateInput->value();
 
-    Point p = Point(xCoordinate,yCoordinate);
+    Point p = Point(xCoordinate, yCoordinate);
     mLinePoints.push_back(p);
 }
 
@@ -63,8 +65,8 @@ void Visualizer::clipPolygon()
 //BSline algo
 void Visualizer::drawBSlineAlgo()
 {
-    bsline = new BSpline();
-    bsline->evaluate(mLinePoints,mVertices,mColors,1);
+    bsline = new BSpline(3);
+    bsline->evaluate(mLinePoints, mVertices, mColors, 1);
 
     mRenderer->setVectorOfLines(mVertices);
     mRenderer->setColorOfLines(mColors);
@@ -76,7 +78,7 @@ void Visualizer::drawBSlineAlgo()
 void Visualizer::drawBezierAlgo()
 {
     bezier = new Bazier(mLinePoints);
-    bezier->calculateBazier( mVertices, mColors);
+    bezier->calculateBazier(mVertices, mColors);
 
     mRenderer->setVectorOfLines(mVertices);
     mRenderer->setColorOfLines(mColors);
@@ -114,7 +116,7 @@ void Visualizer::drawLine()
     mColors.push_back(0.0f);
 
     mColors.push_back(0.0f);
-    mColors.push_back(1.0f); 
+    mColors.push_back(1.0f);
     mColors.push_back(0.0f);
 
     grid.drawGrid(mVertices, mColors);
@@ -131,13 +133,13 @@ void Visualizer::setupUi()
     centralWidget = new QWidget(this);
     centralWidget->setObjectName("centralWidget");
 
-    symmetricLabel = new QLabel(centralWidget);
-    symmetricLabel->setObjectName("symmetricLabel");
-    symmetricLabel->setGeometry(QRect(40, 0, 91, 16));
+    mSymmetricLabel = new QLabel(centralWidget);
+    mSymmetricLabel->setObjectName("mSymmetricLabel");
+    mSymmetricLabel->setGeometry(QRect(40, 0, 91, 16));
 
-    clipPolygonLabel = new QLabel(centralWidget);
-    clipPolygonLabel->setObjectName("clipPolygonLabel");
-    clipPolygonLabel->setGeometry(QRect(160, 0, 81, 16));
+    mClipPolygonLabel = new QLabel(centralWidget);
+    mClipPolygonLabel->setObjectName("mClipPolygonLabel");
+    mClipPolygonLabel->setGeometry(QRect(160, 0, 81, 16));
 
     xCoordinateInput = new QSpinBox(centralWidget);
     xCoordinateInput->setObjectName("xCoordinateInput");
@@ -147,37 +149,41 @@ void Visualizer::setupUi()
     yCoordinateInput->setObjectName("yCoordinateInput");
     yCoordinateInput->setGeometry(QRect(150, 20, 81, 22));
 
-    AddButton = new QPushButton(centralWidget);
-    AddButton->setObjectName("AddButton");
-    AddButton->setGeometry(QRect(260, 20, 75, 24));
+    mAddButton = new QPushButton(centralWidget);
+    mAddButton->setObjectName("mAddButton");
+    mAddButton->setGeometry(QRect(260, 20, 75, 24));
 
-    addPolygonButton = new QPushButton(centralWidget);
-    addPolygonButton->setObjectName("addPolygonButton");
-    addPolygonButton->setGeometry(QRect(40, 50, 75, 24));
+    mAddPolygonButton = new QPushButton(centralWidget);
+    mAddPolygonButton->setObjectName("mAddPolygonButton");
+    mAddPolygonButton->setGeometry(QRect(40, 50, 75, 24));
 
-    addRegionButton = new QPushButton(centralWidget);
-    addRegionButton->setObjectName("addRegionButton");
-    addRegionButton->setGeometry(QRect(150, 50, 75, 24));
+    mAddRegionButton = new QPushButton(centralWidget);
+    mAddRegionButton->setObjectName("mAddRegionButton");
+    mAddRegionButton->setGeometry(QRect(150, 50, 75, 24));
 
-    drawHermitButton = new QPushButton(centralWidget);
-    drawHermitButton->setObjectName("drawHermit");
-    drawHermitButton->setGeometry(QRect(260, 50, 75, 24));
+    mDrawHermitButton = new QPushButton(centralWidget);
+    mDrawHermitButton->setObjectName("drawHermit");
+    mDrawHermitButton->setGeometry(QRect(260, 50, 75, 24));
 
-    darwLineButton = new QPushButton(centralWidget);
-    darwLineButton->setObjectName("darwLineButton");
-    darwLineButton->setGeometry(QRect(40, 80, 75, 24));
+    mDarwLineButton = new QPushButton(centralWidget);
+    mDarwLineButton->setObjectName("mDarwLineButton");
+    mDarwLineButton->setGeometry(QRect(40, 80, 75, 24));
 
-    clipPolygonButton = new QPushButton(centralWidget);
-    clipPolygonButton->setObjectName("clipPolygonButton");
-    clipPolygonButton->setGeometry(QRect(150, 80, 75, 24));
+    mClipPolygonButton = new QPushButton(centralWidget);
+    mClipPolygonButton->setObjectName("mClipPolygonButton");
+    mClipPolygonButton->setGeometry(QRect(150, 80, 75, 24));
 
-    drawBazierButton = new QPushButton(centralWidget);
-    drawBazierButton->setObjectName("drawBezier");
-    drawBazierButton->setGeometry(QRect(260, 80, 75, 24));
+    mDrawBazierButton = new QPushButton(centralWidget);
+    mDrawBazierButton->setObjectName("drawBezier");
+    mDrawBazierButton->setGeometry(QRect(260, 80, 75, 24));
 
-    drawBSlineButton = new QPushButton(centralWidget);
-    drawBSlineButton->setObjectName("drawBezier");
-    drawBSlineButton->setGeometry(QRect(370, 80, 75, 24));
+    mDrawBSlineButton = new QPushButton(centralWidget);
+    mDrawBSlineButton->setObjectName("drawBSPline");
+    mDrawBSlineButton->setGeometry(QRect(370, 80, 75, 24));
+
+    mColorSelector = new QPushButton(centralWidget);
+    mColorSelector->setObjectName("Color");
+    mColorSelector->setGeometry(QRect(480, 80, 75, 24));
 
     openGLWidget = new QOpenGLWidget(centralWidget);
     openGLWidget->setObjectName("openGLWidget");
@@ -208,14 +214,15 @@ void Visualizer::setupUi()
 void Visualizer::retranslateUi()
 {
     setWindowTitle(QCoreApplication::translate("VisualizerClass", "Visualizer", nullptr));
-    symmetricLabel->setText(QCoreApplication::translate("VisualizerClass", "Symmetric DDA", nullptr));
-    clipPolygonLabel->setText(QCoreApplication::translate("VisualizerClass", "Clip Polygon", nullptr));
-    AddButton->setText(QCoreApplication::translate("VisualizerClass", "Add", nullptr));
-    addPolygonButton->setText(QCoreApplication::translate("VisualizerClass", "Add Polygon", nullptr));
-    addRegionButton->setText(QCoreApplication::translate("VisualizerClass", "Add Region", nullptr));
-    darwLineButton->setText(QCoreApplication::translate("VisualizerClass", "Draw Line", nullptr));
-    clipPolygonButton->setText(QCoreApplication::translate("VisualizerClass", "Clip Polygon", nullptr));
-    drawHermitButton->setText(QCoreApplication::translate("VisualizerClass", "Hermit Algo", nullptr));
-    drawBazierButton->setText(QCoreApplication::translate("VisualizerClass", "Bezier Algo", nullptr));
-    drawBSlineButton->setText(QCoreApplication::translate("VisualizerClass", "BSline Algo", nullptr));
+    mSymmetricLabel->setText(QCoreApplication::translate("VisualizerClass", "Symmetric DDA", nullptr));
+    mClipPolygonLabel->setText(QCoreApplication::translate("VisualizerClass", "Clip Polygon", nullptr));
+    mAddButton->setText(QCoreApplication::translate("VisualizerClass", "Add", nullptr));
+    mAddPolygonButton->setText(QCoreApplication::translate("VisualizerClass", "Add Polygon", nullptr));
+    mAddRegionButton->setText(QCoreApplication::translate("VisualizerClass", "Add Region", nullptr));
+    mDarwLineButton->setText(QCoreApplication::translate("VisualizerClass", "Draw Line", nullptr));
+    mClipPolygonButton->setText(QCoreApplication::translate("VisualizerClass", "Clip Polygon", nullptr));
+    mDrawHermitButton->setText(QCoreApplication::translate("VisualizerClass", "Hermit Algo", nullptr));
+    mDrawBazierButton->setText(QCoreApplication::translate("VisualizerClass", "Bezier Algo", nullptr));
+    mDrawBSlineButton->setText(QCoreApplication::translate("VisualizerClass", "BSline Algo", nullptr));
+    mColorSelector->setText(QCoreApplication::translate("VisualizerClass", "Color", nullptr));
 }
